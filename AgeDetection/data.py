@@ -2,8 +2,9 @@ from google.cloud import storage
 from zipfile import ZipFile
 from os import path
 
-BUCKET_NAME="age_detection_faehnrich"
+BUCKET_NAME = "age_detection_faehnrich"
 STORAGE_LOCATION = 'raw_data'
+
 
 def download():
     client = storage.Client().bucket(BUCKET_NAME)
@@ -11,6 +12,7 @@ def download():
     print("Downloading...")
     blob.download_to_filename("../raw_data/Faces.zip")
     print("Downloading Done!")
+
 
 def unzip():
     print("Unzipping...")
@@ -23,6 +25,7 @@ def get_data():
     if path.exists('../raw_data/Faces') == False:
         download()
         unzip()
+
 
 if __name__ == '__main__':
     get_data()
