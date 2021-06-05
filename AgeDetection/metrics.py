@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 
 
-
 def one_off_accuracy(y_test,y_pred):
     
     try:
@@ -71,5 +70,5 @@ def one_off_accuracy(y_test,y_pred):
             if (conf.iloc[k,k] !=0) and (conf.at[k,"Total"]!=0):
                 conf.at[k,"Hit Rate"] = round(100*np.divide(conf.at[k,k],conf.at[k,"Total"]),1)
         print(f"The 1-Off Accuracy is {round(100*accurate/len(y_test),2)}%")
-        
+
     return hit_miss,conf
