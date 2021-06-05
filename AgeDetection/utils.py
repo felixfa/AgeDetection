@@ -72,8 +72,6 @@ def plot_history(history, title='', axs=None, exp_name=""):
     ax2.set_title('Accuracy')
     ax2.legend()
     return (ax1, ax2)
-<<<<<<< HEAD
-=======
 
 def convert_number(num):
     if num == 0:
@@ -108,5 +106,4 @@ def convert_number(num):
         return '71-75'
     elif num == 15:
         return '76-80'
-    
->>>>>>> 8bf8cb5a88899d774bfa626a1a8781cbe005e071
+
