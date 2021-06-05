@@ -22,7 +22,7 @@ def unzip():
 
 
 def get_data():
-    if path.exists('../raw_data/Faces') == False:
+    if not path.exists('../raw_data/Faces'):
         download()
         unzip()
 

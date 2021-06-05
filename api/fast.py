@@ -21,11 +21,21 @@ def index():
 def predict_fare(image):
 
     #url = 'http://localhost:8000/predict_fare'
-
-    X_pred = pd.DataFrame([params.values()],columns=params.keys())
-
+    
+    # Image to Array
+    cropper = Cropper(width=100,height=100)
+    cropped_array = cropper.crop(image)
+    
+    X = np.expand_dims(cropped_array,axis=0)
+    
     # Load Model Locally
     model = models.load_model('/home/fruntxas/code/felixfa/AgeDetection/models/best_model2')
+
+    # Predict
+    y_pred = model.predict(X)
+    y_pred = convert_number(int(np.argsort(y_pred[0])[-1]))
+
+    return y_pred
 
     # Load Model from GCP
     # from google.cloud import storage
@@ -39,8 +49,4 @@ def predict_fare(image):
 
     # blob.download_to_filename('teste.joblib')
 
-    y_pred = model.predict(X)
-    y_pred = convert_number(int(np.argsort(y_pred[0])[-1]))
-
-    return y_pred
     #=> {wait: 64}
