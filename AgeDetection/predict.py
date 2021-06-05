@@ -20,10 +20,10 @@ def loading_one_image():
     cropper = Cropper(width=100,height=100)
 
     # Loading one picture
-    #cropped_array = cropper.crop('../raw_data/Test/IMG_2278.JPG') #Lesly
-    #cropped_array = cropper.crop('../raw_data/Test/IMG_2278.JPG') #Felix
-    cropped_array = cropper.crop('../raw_data/Test/0d33a016-7cdb-4184-938a-ffae451a7eda.JPG') #Rami
-    #cropped_array = cropper.crop('../raw_data/Test/Bildschirmfoto 2021-06-05 um 16.30.02.png') #Tiago
+    #cropped_array = cropper.crop('../test_data/IMG_2278.JPG') #Lesly
+    #cropped_array = cropper.crop('../test_data/IMG_2278.JPG') #Felix
+    cropped_array = cropper.crop('../test_data/0d33a016-7cdb-4184-938a-ffae451a7eda.JPG') #Rami
+    #cropped_array = cropper.crop('../test_data/Bildschirmfoto 2021-06-05 um 16.30.02.png') #Tiago
 
     cropped_array = np.expand_dims(cropped_array,axis=0)
     return cropped_array
