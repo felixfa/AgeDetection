@@ -66,3 +66,6 @@ FILENAME=trainer
 
 run_locally:
 	@python -m ${PACKAGE_NAME}.${FILENAME}
+
+predict:
+	@python -m ${PACKAGE_NAME}.predict	

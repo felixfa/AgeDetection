@@ -1,6 +1,6 @@
 from tensorflow.keras import models
 from os import path
-from utils import load_images_from_folder, convert_number
+from AgeDetection.utils import load_images_from_folder, convert_number
 import numpy as np
 from PIL import Image
 from autocrop import Cropper
@@ -13,7 +13,7 @@ def loading_the_model():
         print('TO DO')
         #TO DO
     print('Nothing to Download!')
-    model = models.load_model('../models/best_model2')
+    model = models.load_model('/home/fruntxas/code/felixfa/AgeDetection/models/best_model2')
     return model
 
 def loading_one_image():
@@ -23,7 +23,7 @@ def loading_one_image():
     #cropped_array = cropper.crop('../test_data/IMG_2278.JPG') #Lesly
     #cropped_array = cropper.crop('../test_data/IMG_2278.JPG') #Felix
     #cropped_array = cropper.crop('../test_data/0d33a016-7cdb-4184-938a-ffae451a7eda.JPG') #Rami
-    cropped_array = cropper.crop('../test_data/Bildschirmfoto 2021-06-05 um 16.30.02.png') #Tiago
+    cropped_array = cropper.crop('/home/fruntxas/code/felixfa/AgeDetection/test_data/Bildschirmfoto 2021-06-05 um 16.30.02.png') #Tiago
 
     cropped_array = np.expand_dims(cropped_array,axis=0)
     return cropped_array

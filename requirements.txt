@@ -28,7 +28,9 @@ six>=1.14
 joblib
 memoized-property
 termcolor
-cv2
+opencv-python
+autocrop
+pillow
 
 # CNN
 tensorflow
