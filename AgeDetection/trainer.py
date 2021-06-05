@@ -33,7 +33,8 @@ if __name__ == "__main__":
     # Fit CNN
     history = CNN_fit(model, X_train, y_train_cat, epochs=1, patience=5)
     print("Model Fitted\n")
-    print(f'Model Evaluate Score: {model.evaluate(X_test, y_test_cat, verbose=0)[1]}')
+    score = model.evaluate(X_test, y_test_cat, verbose=0)[1]
+    print(f'Model Evaluate Score: {score}')
 
     # Predictions
     y_pred = model.predict(X_test)

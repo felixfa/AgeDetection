@@ -8,11 +8,12 @@ def one_off_accuracy(y_test, y_pred):
         # Categorical y_test
         i_ind = []
         accurate = 0
-    
-        hit_miss = pd.DataFrame(data=0, dtype="int16"
-                              ,index = np.linspace(0, y_test.shape[1]-1
-                                , y_test.shape[1], dtype="int8")
-                              ,columns = ['Hit', 'Miss'])
+
+        hit_miss =\
+            pd.DataFrame(data=0, dtype="int16"
+                                , index=np.linspace(0, y_test.shape[1]-1
+                                                , y_test.shape[1], dtype="int8")
+                                , columns = ['Hit', 'Miss'])
 
         conf = pd.DataFrame(data = 0, dtype="int16"
                               ,index = np.linspace(0,y_test.shape[1]-1
