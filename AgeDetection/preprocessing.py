@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 
-def target_binning(target='age'):
+def target_binning(targets,target='age'):
     
     bins = [5*i for i in range(17)]
     labels = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]

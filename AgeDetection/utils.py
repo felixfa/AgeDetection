@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def load_images_from_folder(folder_path,height=200, width=200):
+    
     filenames = [f for f in os.listdir(folder_path) if not f.startswith('.')]
     filenames.sort(key=lambda f: int(re.sub('\D', '', f)))
     images = []
@@ -18,7 +19,7 @@ def load_images_from_folder(folder_path,height=200, width=200):
     return images
 
 
-def load_image_data_into_dataframe(folderpath):
+def load_image_data_into_dataframe(folder_path):
     filenames = [f for f in os.listdir(folder_path)]
     filenames.sort(key=lambda f: int(re.sub('\D', '', f)))
     df = pd.DataFrame()
