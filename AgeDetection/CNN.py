@@ -8,9 +8,11 @@ from tensorflow.random import set_seed
 from tensorflow import random
 
 
-def initialize_compile_model():
+def initialize_compile_model(input_shape=(100,100,3),categories=16):
+
   model = models.Sequential()
-  model.add(Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=(X_train.shape[1], X_train.shape[2], 3)))
+  
+  model.add(Conv2D(32, (3, 3), activation='relu', padding='same', input_shape=input_shape))
   model.add(MaxPooling2D((2, 2)))
   model.add(Dropout(0.2))
 
@@ -25,7 +27,7 @@ def initialize_compile_model():
   model.add(Flatten())
   model.add(Dense(100, activation='relu'))
   model.add(Dropout(0.4))
-  model.add(Dense(y_test_cat.shape[1], activation='softmax'))
+  model.add(Dense(categories, activation='softmax'))
 
   model.compile(loss='categorical_crossentropy',
                 optimizer='adam',
