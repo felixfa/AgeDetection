@@ -73,6 +73,7 @@ def plot_history(history, title='', axs=None, exp_name=""):
     ax2.legend()
     return (ax1, ax2)
 
+
 def convert_number(num):
     if num == 0:
         return '1-5'
@@ -106,4 +107,3 @@ def convert_number(num):
         return '71-75'
     elif num == 15:
         return '76-80'
-
