@@ -63,6 +63,36 @@ pypi:
 PACKAGE_NAME=AgeDetection
 FILENAME=trainer
 
+# ----------------------------------
+#      Google Cloud Platform
+# ----------------------------------
+
+# project id - replace with your Project's ID
+PROJECT_ID=wagon-bootcamp-313018
+
+# bucket name - follow the convention of wagon-ml-[YOUR_LAST_NAME]-[BATCH_NUMBER]
+BUCKET_NAME=wagon-ml-pereira-566
+
+# Choose your region https://cloud.google.com/storage/docs/locations#available_locations
+REGION=europe-west1
+
+set_project:
+	@gcloud config set project ${PROJECT_ID}
+
+create_bucket:
+	@gsutil mb -l ${REGION} -p ${PROJECT_ID} gs://${BUCKET_NAME}
+
+
+
+
+
 
 run_locally:
 	@python -m ${PACKAGE_NAME}.${FILENAME}
+
+predict:
+	@python -m ${PACKAGE_NAME}.predict
+
+
+run_api:
+	uvicorn api.fast:app --reload  # load web server with code autoreload
