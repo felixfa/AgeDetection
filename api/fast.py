@@ -16,7 +16,7 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
-model_path = '/home/fruntxas/code/felixfa/AgeDetection/models/best_model2/'
+model_path = '/home/fruntxas/code/felixfa/AgeDetection/models/best_model/'
 model = models.load_model(model_path)
 
 
@@ -41,12 +41,17 @@ async def read_root(file: UploadFile = File(...)):
     
     with open("tmp.png","wb+") as data:
         data.write(file.file.read())
-        print("Written to csv")
+        print("Written to image")
 
     X = load_image_into_numpy_array("tmp.png")
+    # X = X/255 - 0.5
+    print("Image converted to array")
     y_pred = predict(model,X)
+    print(y_pred)
+    print(type(y_pred))
     guess = convert_number(int(np.argsort(y_pred[0])[-1]))
-    return {"Guess": y_pred}
+    print("Guess Performed")
+    return {"Guess": guess}
 
 
 @app.get("/")
