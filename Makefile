@@ -5,7 +5,7 @@ install_requirements:
 	@pip install -r requirements.txt
 
 check_code:
-	@flake8 scripts/* AgeDetection/*.py
+	@flake8 scripts/* AgeDetection/*.py api/*.py
 
 black:
 	@black scripts/* AgeDetection/*.py
