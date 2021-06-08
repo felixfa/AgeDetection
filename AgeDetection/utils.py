@@ -75,35 +75,4 @@ def plot_history(history, title='', axs=None, exp_name=""):
 
 
 def convert_number(num):
-    if num == 0:
-        return '1-5'
-    elif num == 1:
-        return '6-10'
-    elif num == 2:
-        return '11-15'
-    elif num == 3:
-        return '16-20'
-    elif num == 4:
-        return '21-25'
-    elif num == 5:
-        return '26-30'
-    elif num == 6:
-        return '31-35'
-    elif num == 7:
-        return '36-40'
-    elif num == 8:
-        return '41-45'
-    elif num == 9:
-        return '46-50'
-    elif num == 10:
-        return '51-55'
-    elif num == 11:
-        return '56-60'
-    elif num == 12:
-        return '61-65'
-    elif num == 13:
-        return '66-70'
-    elif num == 14:
-        return '71-75'
-    elif num == 15:
-        return '76-80'
+    return f"{num*5+1}-{num*5+5}"
