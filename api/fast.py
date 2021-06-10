@@ -15,7 +15,7 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
-model_path = '/home/fruntxas/code/felixfa/AgeDetection/models/best_model'
+model_path = 'models/best_model'
 
 model = models.load_model(model_path)
 
