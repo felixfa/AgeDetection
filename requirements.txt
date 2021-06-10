@@ -7,11 +7,8 @@ wheel>=0.29
 # data science
 numpy
 pandas
-scikit-learn
-regex
 
 # tests/linter
-black
 coverage
 flake8
 pytest
@@ -22,17 +19,25 @@ gcsfs
 google-cloud-storage
 mlflow
 s3fs
-fastapi
-uvicorn
+uvicorn==0.13.4
+fastapi==0.65.0
 
 # utilities
 six>=1.14
-joblib
 memoized-property
 termcolor
 opencv-python
 autocrop
 pillow
+httplib2>=0.15.0
+urllib3==1.25.4
+opencv-python==4.5.2.52
+python-multipart
+
 
 # CNN
 tensorflow
+
+
+
+

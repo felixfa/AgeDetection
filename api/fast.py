@@ -1,13 +1,13 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
-# import joblib
 from autocrop import Cropper
 from tensorflow.keras import models
 import numpy as np
 
 
 app = FastAPI()
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -16,7 +16,8 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
-model_path = '/home/fruntxas/code/felixfa/AgeDetection/models/best_model/'
+model_path = '/models/best_model'
+
 model = models.load_model(model_path)
 
 
