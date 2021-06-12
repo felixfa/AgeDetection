@@ -32,6 +32,7 @@ httplib2>=0.15.0
 urllib3==1.25.4
 opencv-python
 python-multipart
+regex
 
 
 # CNN

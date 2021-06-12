@@ -2,10 +2,7 @@ from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from tensorflow.keras import models
 import numpy as np
-from AgeDetection.utils import image_to_array, convert_weight, age_range  # , convert_number
-from AgeDetection.metrics import weighted_accuracy
-from AgeDetection.utils_CNN import predict
-from math import modf
+from api.utils_basic import image_to_array, convert_weight, age_range, weighted_accuracy, predict
 
 app = FastAPI()
 
