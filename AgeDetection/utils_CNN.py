@@ -19,3 +19,8 @@ def CNN_fit(model, X_train, y_train_cat, epochs=100, patience=5):
     # print(f'Score: {model.evaluate(X_test, y_test_cat, verbose=0)[1]}')
 
     return history
+
+
+def predict(model, X):
+    y_pred = model.predict(X)
+    return y_pred

@@ -1,5 +1,24 @@
 import numpy as np
 import pandas as pd
+from math import modf
+
+def weighted_accuracy(y_pred):
+    weighted_pred = 0
+    for i, element in enumerate(y_pred):
+        num_1 = int(np.argsort(y_pred[i])[-1])
+        num_2 = int(np.argsort(y_pred[i])[-2])
+        num_3 = int(np.argsort(y_pred[i])[-3])
+        prop_1 = y_pred[i][num_1]
+        prop_2 = y_pred[i][num_2]
+        prop_3 = y_pred[i][num_3]
+        prop_sum = prop_1+prop_2+prop_3
+        pred = num_1*prop_1/prop_sum+num_2*prop_2/prop_sum+num_3*prop_3/prop_sum
+
+        weighted_pred = round(modf(pred)[1]*5+1 + modf(pred)[0] * 5, 2)
+        # pred=int(round(pred,0))
+        # pred_list.append(pred)
+    # return np.array(pred_list)
+    return weighted_pred
 
 
 def one_off_accuracy(y_test, y_pred):

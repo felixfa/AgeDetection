@@ -1,9 +1,11 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
-from autocrop import Cropper
 from tensorflow.keras import models
 import numpy as np
-
+from AgeDetection.utils import convert_number, image_to_array
+from AgeDetection.metrics import weighted_accuracy
+from AgeDetection.utils_CNN import predict
+from math import modf
 
 app = FastAPI()
 
@@ -15,24 +17,9 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
+
 model_path = 'models/best_model'
-
 model = models.load_model(model_path)
-
-
-def predict(model, X):
-    y_pred = model.predict(X)
-    return y_pred
-
-
-def load_image_into_numpy_array(image):
-    cropper = Cropper(width=100, height=100)
-    cropped_array = cropper.crop(image)
-    return np.expand_dims(cropped_array, axis=0)
-
-
-def convert_number(num):
-    return f"{num*5+1}-{num*5+5}"
 
 
 # Upload Image
@@ -43,15 +30,35 @@ async def read_root(file: UploadFile = File(...)):
         data.write(file.file.read())
         print("Written to image")
 
-    X = load_image_into_numpy_array("tmp.png")
+    # Converting Image to Array and Scaling
+    X = image_to_array("tmp.png")
     X = X/255 - 0.5
-    print("Image converted to array")
-    y_pred = predict(model, X)
+    print("Scaled Image converted to array")
+
+    # Predicting
+    y_pred = predict(model, X)  # [0]
     print(y_pred)
-    print(type(y_pred))
-    guess = convert_number(int(np.argsort(y_pred[0])[-1]))
-    print("Guess Performed")
-    return {"Guess": guess}
+    print("Prediction Performed")
+    main_pred = np.argmax(y_pred)
+    # Pre List
+    weighted_pred = weighted_accuracy(y_pred)
+    print(weighted_pred)
+
+    # main_pred = np.argmax(y_pred)
+    '''pred_bins = {"Main Guess" :
+        {"Range": convert_number(main_pred), "Probability": float(y_pred[main_pred])},
+                 "Left Guess" :
+        {"Range": convert_number(main_pred-1), "Probability": float(y_pred[main_pred-1])},
+                 "Right Guess":
+        {"Range": convert_number(main_pred+1), "Probability": float(y_pred[main_pred+1])}
+    }'''
+
+    # guess = round(modf(weighted_pred)[1]*5+1 + modf(weighted_pred)[0] * 5, 2)
+
+    output = {"Initial Age Bin": convert_number(main_pred), "Weighted Guess": weighted_pred}
+    print("Guesses Performed")
+
+    return output
 
 
 @app.get("/")
