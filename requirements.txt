@@ -30,7 +30,7 @@ autocrop
 pillow
 httplib2>=0.15.0
 urllib3==1.25.4
-opencv-python3
+opencv-python==4.5.2.52
 python-multipart
 
 
