@@ -46,7 +46,7 @@ async def read_root(file: UploadFile = File(...)):
 
     # guess = round(modf(weighted_pred)[1]*5+1 + modf(weighted_pred)[0] * 5, 2)
 
-    output = {"Initial Age Bin": age_range(main_pred), "Weighted Guess": weighted_pred}
+    output = {"Age Bin": age_range(int(weighted_pred)), "Weighted Guess": int(weighted_pred*5+1)}
     print("Guesses Performed")
 
     return output

@@ -26,8 +26,7 @@ def weighted_accuracy(y_pred):
         prop_3 = y_pred[i][num_3]
         prop_sum = prop_1+prop_2+prop_3
         pred = num_1*prop_1/prop_sum+num_2*prop_2/prop_sum+num_3*prop_3/prop_sum
-        weighted_pred = round(pred*5+1, 2)
-    return weighted_pred
+    return pred
 
 
 def predict(model, X):
