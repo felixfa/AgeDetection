@@ -2,7 +2,7 @@ from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from tensorflow.keras import models
 import numpy as np
-from AgeDetection.utils import convert_number, image_to_array
+from AgeDetection.utils import image_to_array, convert_weight, age_range  # , convert_number
 from AgeDetection.metrics import weighted_accuracy
 from AgeDetection.utils_CNN import predict
 from math import modf
@@ -39,23 +39,17 @@ async def read_root(file: UploadFile = File(...)):
     y_pred = predict(model, X)  # [0]
     print(y_pred)
     print("Prediction Performed")
+
+    #Main Bin
     main_pred = np.argmax(y_pred)
-    # Pre List
+
+    # Pred List for weighted prediction
     weighted_pred = weighted_accuracy(y_pred)
     print(weighted_pred)
 
-    # main_pred = np.argmax(y_pred)
-    '''pred_bins = {"Main Guess" :
-        {"Range": convert_number(main_pred), "Probability": float(y_pred[main_pred])},
-                 "Left Guess" :
-        {"Range": convert_number(main_pred-1), "Probability": float(y_pred[main_pred-1])},
-                 "Right Guess":
-        {"Range": convert_number(main_pred+1), "Probability": float(y_pred[main_pred+1])}
-    }'''
-
     # guess = round(modf(weighted_pred)[1]*5+1 + modf(weighted_pred)[0] * 5, 2)
 
-    output = {"Initial Age Bin": convert_number(main_pred), "Weighted Guess": weighted_pred}
+    output = {"Initial Age Bin": age_range(main_pred), "Weighted Guess": weighted_pred}
     print("Guesses Performed")
 
     return output
@@ -64,3 +58,12 @@ async def read_root(file: UploadFile = File(...)):
 @app.get("/")
 def index():
     return {"Greetings": "Welcome to the Age Prediction"}
+
+# main_pred = np.argmax(y_pred)
+    '''pred_bins = {"Main Guess" :
+        {"Range": convert_number(main_pred), "Probability": float(y_pred[main_pred])},
+                 "Left Guess" :
+        {"Range": convert_number(main_pred-1), "Probability": float(y_pred[main_pred-1])},
+                 "Right Guess":
+        {"Range": convert_number(main_pred+1), "Probability": float(y_pred[main_pred+1])}
+    }'''

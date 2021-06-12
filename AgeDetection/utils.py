@@ -80,6 +80,14 @@ def convert_number(num):
     return f"{num*5+1}-{num*5+5}"
 
 
+def age_range(num):
+    return f"{num*5+1-5}-{num*5+5+5}"
+
+
+def convert_weight(num):
+    return f"{num*5+1}"
+
+
 def image_to_array(image):
     cropper = Cropper(width=100, height=100)
     cropped_array = cropper.crop(image)
