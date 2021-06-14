@@ -23,12 +23,19 @@ model = models.load_model(model_path)
 @app.post("/image")
 async def read_root(file: UploadFile = File(...)):
 
-    with open("tmp.png", "wb+") as data:
+    with open("tmp.jpg", "wb+") as data:
         data.write(file.file.read())
         print("Written to image")
 
+    print(f"Import file type is {type(file.file)}")
+
     # Converting Image to Array and Scaling
-    X = image_to_array("tmp.png")
+    X = image_to_array("tmp.jpg")
+    
+    # Exception created
+    if X[0] != 100:
+        return {"No Face detected": "No Face detected"}
+    
     X = X/255 - 0.5
     print("Scaled Image converted to array")
 
@@ -44,8 +51,6 @@ async def read_root(file: UploadFile = File(...)):
     weighted_pred = weighted_accuracy(y_pred)
     print(weighted_pred)
 
-    # guess = round(modf(weighted_pred)[1]*5+1 + modf(weighted_pred)[0] * 5, 2)
-
     output = {"Age Bin": age_range(int(weighted_pred)), "Weighted Guess": int(weighted_pred*5+1)}
     print("Guesses Performed")
 
@@ -55,12 +60,3 @@ async def read_root(file: UploadFile = File(...)):
 @app.get("/")
 def index():
     return {"Greetings": "Welcome to the Age Prediction"}
-
-# main_pred = np.argmax(y_pred)
-    '''pred_bins = {"Main Guess" :
-        {"Range": convert_number(main_pred), "Probability": float(y_pred[main_pred])},
-                 "Left Guess" :
-        {"Range": convert_number(main_pred-1), "Probability": float(y_pred[main_pred-1])},
-                 "Right Guess":
-        {"Range": convert_number(main_pred+1), "Probability": float(y_pred[main_pred+1])}
-    }'''

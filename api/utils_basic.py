@@ -3,7 +3,7 @@ import numpy as np
 from tensorflow.keras import models
 
 def age_range(num):
-    return f"{num*5+1-5}-{num*5+5+5}"
+    return f"{max(num*5+1-5,1)}-{min(num*5+5+5,80)}"
 
 
 def convert_weight(num):
@@ -14,6 +14,7 @@ def image_to_array(image):
     cropper = Cropper(width=100, height=100)
     cropped_array = cropper.crop(image)
     return np.expand_dims(cropped_array, axis=0)
+
 
 def weighted_accuracy(y_pred):
     weighted_pred = 0
