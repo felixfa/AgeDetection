@@ -41,12 +41,13 @@ async def read_root(file: UploadFile = File(...)):
     main_pred = np.argmax(y_pred)
 
     # Pred List for weighted prediction
-    weighted_pred = weighted_accuracy(y_pred)
-    print(weighted_pred)
+    print(main_pred)
+    weighted_bin, weighted_pred = weighted_accuracy(y_pred)
+    print(weighted_bin)
 
     # guess = round(modf(weighted_pred)[1]*5+1 + modf(weighted_pred)[0] * 5, 2)
 
-    output = {"Initial Age Bin": age_range(main_pred), "Weighted Guess": weighted_pred}
+    output = {"Initial Age Bin": age_range(weighted_bin), "Weighted Guess": weighted_pred}
     print("Guesses Performed")
 
     return output
