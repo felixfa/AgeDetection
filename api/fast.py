@@ -42,12 +42,13 @@ async def read_root(file: UploadFile = File(...)):
 
     # Pred List for weighted prediction
     print(main_pred)
-    weighted_bin, weighted_pred = weighted_accuracy(y_pred)
+    weighted_pred = weighted_accuracy(y_pred)
     print(weighted_bin)
 
     # guess = round(modf(weighted_pred)[1]*5+1 + modf(weighted_pred)[0] * 5, 2)
 
-    output = {"Initial Age Bin": age_range(weighted_bin), "Weighted Guess": weighted_pred}
+
+    output = {"Age Bin": age_range(int(weighted_pred)), "Weighted Guess": int(weighted_pred*5+1)}
     print("Guesses Performed")
 
     return output
