@@ -1,8 +1,7 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from tensorflow.keras import models
-import numpy as np
-from api.utils_basic import image_to_array, convert_weight, age_range, weighted_accuracy, predict
+from api.utils_basic import image_to_array, age_range, weighted_accuracy, predict
 
 app = FastAPI()
 
@@ -25,34 +24,30 @@ async def read_root(file: UploadFile = File(...)):
 
     with open("tmp.jpg", "wb+") as data:
         data.write(file.file.read())
-        print("Written to image")
-
-    print(f"Import file type is {type(file.file)}")
+        #   print("Written to image")
 
     # Converting Image to Array and Scaling
     X = image_to_array("tmp.jpg")
-    
+
     # Exception created
     if X[0] != 100:
         return {"No Face detected": "No Face detected"}
-    
+
     X = X/255 - 0.5
-    print("Scaled Image converted to array")
+    # print("Scaled Image converted to array")
 
     # Predicting
     y_pred = predict(model, X)  # [0]
-    print(y_pred)
-    print("Prediction Performed")
-
-    #Main Bin
-    main_pred = np.argmax(y_pred)
+    # print(y_pred)
+    # print("Prediction Performed")
 
     # Pred List for weighted prediction
     weighted_pred = weighted_accuracy(y_pred)
-    print(weighted_pred)
+    # print(weighted_pred)
 
-    output = {"Age Bin": age_range(int(weighted_pred)), "Weighted Guess": int(weighted_pred*5+1)}
-    print("Guesses Performed")
+    output = {"Age Bin": age_range(int(weighted_pred)),
+              "Weighted Guess": int(weighted_pred*5+1)}
+    # print("Guesses Performed")
 
     return output
 
