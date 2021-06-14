@@ -93,6 +93,24 @@ run_locally:
 predict:
 	@python -m ${PACKAGE_NAME}.predict
 
-
 run_api:
 	uvicorn api.fast:app --reload  # load web server with code autoreload
+
+
+
+
+# ----------------------------------
+#           Dockerfile
+# ----------------------------------
+
+docker_build:
+	@docker build -t eu.gcr.io/${PROJECT_ID}/${DOCKER_IMAGE_NAME} .
+
+docker_run:
+	@docker run -e PORT=8000 -p 8000:8000 eu.gcr.io/${PROJECT_ID}/${DOCKER_IMAGE_NAME}
+
+docker_push:
+	@docker push eu.gcr.io/${PROJECT_ID}/${DOCKER_IMAGE_NAME}
+
+docker_deploy:
+	@gcloud run deploy --image eu.gcr.io/${PROJECT_ID}/${DOCKER_IMAGE_NAME} --platform managed --region europe-west1
