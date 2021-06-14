@@ -30,8 +30,8 @@ async def read_root(file: UploadFile = File(...)):
     X = image_to_array("tmp.jpg")
 
     # Exception created
-    if X[0] != 100:
-        return {"No Face detected": "No Face detected"}
+    if X[0] is None:
+        return {"No Face detected": "Unable to detect a face"}
 
     X = X/255 - 0.5
     # print("Scaled Image converted to array")
