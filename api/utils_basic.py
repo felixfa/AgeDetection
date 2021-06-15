@@ -29,8 +29,6 @@ def weighted_accuracy(y_pred):
         weighted_bin = int(pred)
         weighted_pred = round(pred*5+1, 2)
     return weighted_bin, weighted_pred
-=======
-=======
         num1 = int(np.argsort(y_pred[i])[-1])
         num2 = int(np.argsort(y_pred[i])[-2])
         num3 = int(np.argsort(y_pred[i])[-3])
