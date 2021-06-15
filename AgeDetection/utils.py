@@ -81,7 +81,7 @@ def convert_number(num):
 
 
 def age_range(num):
-    return f"{num*5+1-5}-{num*5+5+5}"
+    return f"{max(num*5+1-5,1)}-{min(num*5+5+5,80)}"
 
 
 def convert_weight(num):

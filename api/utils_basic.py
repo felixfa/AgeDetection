@@ -1,9 +1,9 @@
 from autocrop import Cropper
 import numpy as np
-from tensorflow.keras import models
+
 
 def age_range(num):
-    return f"{num*5+1-5}-{num*5+5+5}"
+    return f"{max(num*5+1-5,1)}-{min(num*5+5+5,80)}"
 
 
 def convert_weight(num):
@@ -15,8 +15,8 @@ def image_to_array(image):
     cropped_array = cropper.crop(image)
     return np.expand_dims(cropped_array, axis=0)
 
+
 def weighted_accuracy(y_pred):
-    weighted_pred = 0
     for i, element in enumerate(y_pred):
         num_1 = int(np.argsort(y_pred[i])[-1])
         num_2 = int(np.argsort(y_pred[i])[-2])
@@ -26,13 +26,20 @@ def weighted_accuracy(y_pred):
         prop_3 = y_pred[i][num_3]
         prop_sum = prop_1+prop_2+prop_3
         pred = num_1*prop_1/prop_sum+num_2*prop_2/prop_sum+num_3*prop_3/prop_sum
-<<<<<<< HEAD
         weighted_bin = int(pred)
         weighted_pred = round(pred*5+1, 2)
     return weighted_bin, weighted_pred
 =======
+=======
+        num1 = int(np.argsort(y_pred[i])[-1])
+        num2 = int(np.argsort(y_pred[i])[-2])
+        num3 = int(np.argsort(y_pred[i])[-3])
+        prop1 = y_pred[i][num1]
+        prop2 = y_pred[i][num2]
+        prop3 = y_pred[i][num3]
+        prop_sum = prop1+prop2+prop3
+        pred = num1*prop1/prop_sum+num2*prop2/prop_sum+num3*prop3/prop_sum
     return pred
->>>>>>> 0ef50f0d7fbe61eed3d193ac19efada8c565d6fd
 
 
 def predict(model, X):
